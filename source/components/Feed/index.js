@@ -26,7 +26,7 @@ export default class Feed extends Component{
         // const { avatar, currentUserFirstName } = this.props;
         return (
            <section className={Styles.feed}>
-               <Compose />
+               <Composer />
                <Post />
            </section>
         )
