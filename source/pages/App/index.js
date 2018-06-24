@@ -7,6 +7,7 @@ import avatar from '../../theme/assets/homer.png';
 
 // Components
 import Feed from '../../components/Feed';
+import { Provider } from "../../components/HOC/withProfile";
 
 const options = {
     avatar,
@@ -18,9 +19,9 @@ const options = {
 export class App extends Component {
     render() {
         return (
-            <section>
+            <Provider value={ options }>
                 <Feed { ...options }/>
-            </section>
+            </Provider>
         )
     }
 }
