@@ -8,10 +8,13 @@ import avatar from '../../theme/assets/homer.png';
 export default class Post extends Component{
     render () {
         const time = moment().format('MMMM D h:mm:ss a');
+        const style = {
+            width: 'calc(100/4*1%)'
+        };
         return (
             <section>
                 <div>
-                    <img src={ avatar } />
+                    <img src={ avatar } style={ style } />
                     <a>Igor</a>
                     <time>{ time }</time>
                 </div>
