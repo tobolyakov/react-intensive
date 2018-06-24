@@ -21,6 +21,7 @@ const start = (
     </div>
 );
 
-const ellementOne = <h1 title={site}> Helo</h1>
+// const ellementOne = <h1 title={Hi}> Hi </h1>;
+const list =[...Array(10).keys()].map((num, inedex) => <li key={inedex}> List item: {num} </li>);
 
-ReactDOM.render(ellementOne, document.getElementById('app'));
+ReactDOM.render(list, document.getElementById('app'));
