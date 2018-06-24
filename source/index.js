@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import './theme/init';
 
 //Components
-import { App } from 'pages';
+import { App } from './pages/App';
 
 const start = (
     <div
@@ -27,4 +27,7 @@ const start = (
 // const ellementOne = <h1 title={Hi}> Hi </h1>;
 const list =[...Array(10).keys()].map((num, inedex) => <li key={inedex}> List item: {num} </li>);
 
-ReactDOM.render(<ul>{list}</ul>, document.getElementById('app'));
+ReactDOM.render(
+    <App/>,
+    document.getElementById('app')
+);
