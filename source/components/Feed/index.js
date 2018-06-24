@@ -8,6 +8,7 @@ import Styles from './style.m.css';
 // Components
 import Composer from '../../components/Composer';
 import Post from '../../components/Post';
+import StatusBar from '../../components/StatusBar'
 
 // Render
 
@@ -26,6 +27,7 @@ export default class Feed extends Component{
         // const { avatar, currentUserFirstName } = this.props;
         return (
            <section className={Styles.feed}>
+               <StatusBar />
                <Composer />
                <Post />
            </section>
