@@ -1,6 +1,6 @@
 //Core
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
+import {string} from 'prop-types';
 
 // Instruments
 import Styles from './style.m.css';
@@ -13,10 +13,14 @@ import Post from '../../components/Post';
 
 export default class Feed extends Component{
     static propTypes = {
-        avatar: propTypes.string.isRequire,
-        currentUserFirstName: propTypes.string.isRequire,
-        currentUserLastName: propTypes.string.isRequire,
-    }
+        avatar:                 string.isRequire,
+        currentUserFirstName:   string.isRequire,
+        currentUserLastName:    string.isRequire,
+    };
+
+    static defautProps = {
+        currentUserFirstName: 'Jon'
+    };
 
     render () {
         const { avatar, currentUserFirstName } = this.props;

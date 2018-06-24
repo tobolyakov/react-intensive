@@ -12,7 +12,7 @@ const options = {
     avatar,
     currentUserFirstName: 'Igor',
     currentUserLastName: 'Tobolyakov',
-}
+};
 
 @hot(module)
 export class App extends Component {

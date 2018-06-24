@@ -1,14 +1,19 @@
 //Core
 import React, { Component } from 'react';
 import moment from 'moment';
+import {string} from 'prop-types';
 
 // Instuments
-// import avatar from '../../theme/assets/homer.png';
 import Styles from './style.m.css';
 
 // Render
 
 export default class Post extends Component{
+    static propTypes = {
+        avatar:                 string.isRequire,
+        currentUserFirstName:   string.isRequire,
+        currentUserLastName:    string.isRequire,
+    };
     render () {
         const time = moment().format('MMMM D h:mm:ss a');
         const style = {
