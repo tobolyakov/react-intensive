@@ -12,15 +12,15 @@ import Post from '../../components/Post';
 // Render
 
 export default class Feed extends Component{
-    // static propTypes = {
-    //     avatar:                 string.isRequire,
-    //     currentUserFirstName:   string.isRequire,
-    //     currentUserLastName:    string.isRequire,
-    // };
-    //
-    // static defautProps = {
-    //     currentUserFirstName: 'Jon'
-    // };
+    static propTypes = {
+        avatar:                 string.isRequire,
+        currentUserFirstName:   string.isRequire,
+        currentUserLastName:    string.isRequire,
+    };
+
+    static defautProps = {
+        currentUserFirstName: 'Jon'
+    };
 
     render () {
         // const { avatar, currentUserFirstName } = this.props;

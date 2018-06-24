@@ -12,11 +12,12 @@ import { Consumer } from "../HOC/withProfile";
 // Render
 
 export default class Post extends Component{
-    // static propTypes = {
-    //     avatar:                 string.isRequire,
-    //     currentUserFirstName:   string.isRequire,
-    //     currentUserLastName:    string.isRequire,
-    // };
+    static propTypes = {
+        avatar:                 string.isRequire,
+        currentUserFirstName:   string.isRequire,
+        currentUserLastName:    string.isRequire,
+    };
+
     render () {
         const time = moment().format('MMMM D h:mm:ss a');
         const style = {

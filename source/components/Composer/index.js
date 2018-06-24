@@ -11,10 +11,10 @@ import { Consumer } from "../HOC/withProfile";
 // Render
 
 export default class Composer extends Component{
-    // static propTypes = {
-    //     avatar:                 string.isRequire,
-    //     currentUserFirstName:   string.isRequire,
-    // };
+    static propTypes = {
+        avatar:                 string.isRequire,
+        currentUserFirstName:   string.isRequire,
+    };
 
     render () {
         // const { avatar, currentUserFirstName } = this.props;
