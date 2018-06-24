@@ -5,6 +5,9 @@ import ReactDOM from 'react-dom';
 // Theme
 import './theme/init';
 
+//Components
+import { App } from 'pages';
+
 const start = (
     <div
         style = { {
