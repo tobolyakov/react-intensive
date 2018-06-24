@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 // import avatar from '../../theme/assets/homer.png';
 import Styles from './style.m.css';
 
+// Render
+
 export default class Composer extends Component{
     render () {
         const { avatar, currentUserFirstName } = this.props;

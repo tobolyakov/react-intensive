@@ -6,6 +6,8 @@ import moment from 'moment';
 // import avatar from '../../theme/assets/homer.png';
 import Styles from './style.m.css';
 
+// Render
+
 export default class Post extends Component{
     render () {
         const time = moment().format('MMMM D h:mm:ss a');
