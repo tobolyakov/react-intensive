@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 
 // Components
 import Composer from '../../components/Composer';
+import Post from '../../components/Post';
 
 export class App extends Component {
     render() {
@@ -10,6 +11,7 @@ export class App extends Component {
 
             <section>
                 <Composer />
+                <Post />
             </section>
         )
     }

@@ -11,6 +11,7 @@ export default class Composer extends Component{
                 <img src={ avatar } />
                 <form>
                     <textarea placeholder={ `Wat is in your mind, Igor` } />
+                    <br />
                     <input type='submit' value='Post'/>
                 </form>
             </section>
