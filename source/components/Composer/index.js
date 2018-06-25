@@ -30,6 +30,19 @@ export class Composer extends Component {
         this.setState({ comment });
     }
 
+    _blocCopy = (e) => {
+        e.preventDefault();
+    }
+
+    _submitCommentEnter = (e) => {
+        const enterKey = e.key === 'Enter';
+
+        if (enterKey) {
+            e.preventDefault();
+            this._submitComment();
+        }
+    }
+
     _submitComment = (e) => {
         const { comment } = this.state;
 
@@ -58,6 +71,8 @@ export class Composer extends Component {
                         placeholder = { `Wat is in your mind, ${currentUserFirstName}` }
                         value = { comment }
                         onChange = { this._updateComment }
+                        onCopy = { this._blocCopy }
+                        onKeyPress = { this._submitCommentEnter }
                     />
                     <br />
                     <input type = 'submit' value = 'Post' />
