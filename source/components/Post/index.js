@@ -5,6 +5,7 @@ import moment from 'moment';
 // Instruments
 import Styles from './style.m.css';
 import { string } from "prop-types";
+import { api } from '../../REST/api';
 
 // Components
 import { withProfile } from "../HOC/withProfile";
@@ -16,16 +17,32 @@ export class Post extends Component {
         currentUserLastName:    string.isRequired,
     }
 
+    _deletePostAsync = async () => {
+        try {
+            const posts = await api.deletePosts();
+
+            console.log(posts);
+        } catch ({ message }) {
+            console.error(message);
+        } finally {
+
+        }
+    }
+
     _getCross = () => {
         const {
         currentUserFirstName,
         currentUserLastName,
         lastName,
         firstName,
+        id,
         } = this.props;
 
         return `${firstName}${lastName}` === `${currentUserFirstName}${currentUserLastName}`
-        ? <span className={ Styles.cross } />
+        ? <span
+                className = { Styles.cross }
+                onClick = { this._deletePostAsync }
+            />
         : null;
     }
 

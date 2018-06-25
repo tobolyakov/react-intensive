@@ -40,6 +40,7 @@ export default class Feed extends Component {
             this._setPostFetchingState(true);
             const posts = await api.fetchPosts();
 
+            console.log(posts);
             this.setState({
                 posts,
             });

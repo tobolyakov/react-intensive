@@ -1,4 +1,4 @@
-import { MAIN_URL, TOKEN } from './config';
+import { MAIN_URL, TOKEN, MAIN_POST } from './config';
 
 export const  api = {
     async fetchPosts () {
@@ -14,6 +14,7 @@ export const  api = {
 
         return posts;
     },
+
     async createPost (comment) {
         const response = await fetch(MAIN_URL, {
             method: 'POST',
@@ -33,4 +34,17 @@ export const  api = {
         return post;
     },
 
+    async deletePosts (id) {
+        const response = await fetch(`${MAIN_URL}/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (response.status !== 200) {
+            throw  new Error('Posts were not loader');
+        }
+
+        const { data: posts } = await  response.json();
+
+        return posts;
+    },
 };
