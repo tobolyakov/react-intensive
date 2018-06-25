@@ -15,6 +15,7 @@ export default class Composer extends Component {
         this._handleUpdate = ::this._handleUpdate;
         this._handleSubmit = ::this._handleSubmit;
     }
+
     state = {
         comment: "",
     };
@@ -23,14 +24,38 @@ export default class Composer extends Component {
         const { value: comment } = e.target;
 
         this.setState({ comment });
+
     }
+
+    // _handleSubmit (e) {
+    //     e.preventDefault();
+    //     const {comment} = this.props;
+    //
+    //     const {createPost} = this.props;
+    //
+    //     createPost(comment);
+    // }
 
     _handleSubmit (e) {
         e.preventDefault();
-        const { createPost } = this.props;
         const { comment } = this.props;
 
+        const { createPost } = this.props;
+
         createPost(comment);
+
+        // if (comment) {
+        //     const { createPost } = this.props;
+        //
+        //     createPost(comment);
+        //
+        //     this.setState({
+        //         comment: "",
+        //     });
+        // }
+
+        console.log(comment);
+
     }
 
     render () {

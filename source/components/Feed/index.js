@@ -4,6 +4,7 @@ import { string } from 'prop-types';
 
 // Instruments
 import Styles from './style.m.css';
+import { getUniqueID } from "../../instruments";
 
 // Components
 import Composer from '../../components/Composer';
@@ -34,7 +35,7 @@ export default class Feed extends Component {
 
     _createPost (comment) {
         this.setState(({ posts }) => ({
-            posts: [{ comment }, ...posts],
+            posts: [{ comment, _id: getUniqueID() }, ...posts],
         }));
     }
 
@@ -42,8 +43,8 @@ export default class Feed extends Component {
         const { avatar, currentUserFirstName } = this.props;
         const { posts: userPosts } = this.state;
 
-        const posts = userPosts.map((post, index) => (
-            <Post key = { index } { ...post } />
+        const posts = userPosts.map((post, _id) => (
+            <Post key = { post._id } { ...post } />
         ));
 
         return (
@@ -54,7 +55,7 @@ export default class Feed extends Component {
                 createPost = { this._createPost }
                 currentUserFirstName = { currentUserFirstName }
                />
-               { posts}
+               { posts }
            </section>
         )
     }
