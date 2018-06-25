@@ -26,7 +26,7 @@ export default class Post extends Component {
                             <img src = { context.avatar } />
                             <a>{ context.currentUserFirstName} { context.currentUserLastName}</a>
                             <time>{ time }</time>
-                            <p> { context.comment } </p>
+                            <p> { comment } </p>
                         </section>
                     )
                 }

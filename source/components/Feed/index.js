@@ -24,16 +24,11 @@ export default class Feed extends Component {
         currentUserFirstName: 'Jon',
     };
 
-    constructor () {
-        super();
-        this._createPost = ::this._createPost;
-    }
-
     state = {
         posts: [],
     }
 
-    _createPost (comment) {
+    _createPostAsync = (comment) => {
         this.setState(({ posts }) => ({
             posts: [{ comment, _id: getUniqueID() }, ...posts],
         }));
@@ -51,8 +46,8 @@ export default class Feed extends Component {
            <section className = { Styles.feed }>
                <StatusBar />
                <Composer
-                avatar = { avatar }
-                createPost = { this._createPost }
+               _createPostAsync = { this._createPostAsync }
+               avatar = { avatar }
                 currentUserFirstName = { currentUserFirstName }
                />
                { posts }

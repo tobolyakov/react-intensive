@@ -10,52 +10,36 @@ import { Consumer } from "../HOC/withProfile";
 // Render
 
 export default class Composer extends Component {
-    constructor () {
-        super();
-        this._handleUpdate = ::this._handleUpdate;
-        this._handleSubmit = ::this._handleSubmit;
-    }
-
     state = {
         comment: "",
     };
 
-    _handleUpdate (e) {
-        const { value: comment } = e.target;
-
-        this.setState({ comment });
-
+    _hendleFormSubmit = (e) => {
+        e.preventDefault();
+        this._submitComment();
     }
 
-    // _handleSubmit (e) {
-    //     e.preventDefault();
-    //     const {comment} = this.props;
-    //
-    //     const {createPost} = this.props;
-    //
-    //     createPost(comment);
-    // }
-
-    _handleSubmit (e) {
-        e.preventDefault();
-        const { comment } = this.props;
-
-        const { createPost } = this.props;
-
-        createPost(comment);
-
-        // if (comment) {
-        //     const { createPost } = this.props;
-        //
-        //     createPost(comment);
-        //
-        //     this.setState({
-        //         comment: "",
-        //     });
-        // }
-
+    _updateComment = (e) => {
+        const { value: comment } = e.target;
         console.log(comment);
+        this.setState({ comment });
+    }
 
+    _submitComment = (e) => {
+        const { comment } = this.state;
+console.log(comment)
+
+        if (!comment) {
+            return null;
+        }
+
+        const { _createPostAsync } = this.props;
+
+        _createPostAsync(comment);
+
+        this.setState({
+            comment: "",
+        });
     }
 
     render () {
@@ -67,11 +51,11 @@ export default class Composer extends Component {
                     (context) => (
                         <section className = { Styles.composer }>
                             <img src = { context.avatar } />
-                            <form onSubmit = { this._handleSubmit }>
+                            <form onSubmit = { this._hendleFormSubmit }>
                                 <textarea
                                     placeholder = { `Wat is in your mind, ${context.currentUserFirstName}` }
                                     value = { comment }
-                                    onChange = { this._handleUpdate }
+                                    onChange = { this._updateComment }
                                 />
                                 <br />
                                 <input type = 'submit' value = 'Post' />
