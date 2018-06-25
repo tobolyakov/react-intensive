@@ -12,6 +12,7 @@ import Composer from '../../components/Composer';
 import Post from '../../components/Post';
 import Catcher from '../../components/Catcher';
 import Counter from '../../components/Counter';
+import Spinner from '../../components/Spinner';
 
 // Render
 
@@ -28,34 +29,63 @@ export default class Feed extends Component {
         this._fetchPostAsync();
     }
 
-    _fetchPostAsync = async() => {
-        const posts = await api.fetchPosts();
+    _setPostFetchingState = (isSpinning) => {
+        this.setState({
+            isSpinning,
+        });
     }
 
-    _createPostAsync = (comment) => {
-        this.setState(({ posts }) => ({
-            posts: [{ comment, _id: getUniqueID() }, ...posts],
-        }));
+    _fetchPostAsync = async () => {
+        try {
+            this._setPostFetchingState(true);
+            const posts = await api.fetchPosts();
+
+            this.setState({
+                posts,
+            });
+        } catch ({ message }) {
+            console.error(message);
+        } finally {
+            this._setPostFetchingState(false);
+        }
+    }
+
+    _createPostAsync = async (comment) => {
+        try {
+            this._setPostFetchingState(true);
+
+            const post = await api.createPost(comment);
+
+            this.setState((prevState) => ({
+                posts: [post, ...prevState.posts],
+            }));
+
+        } catch ({ message }) {
+            console.error(message);
+        } finally {
+            this._setPostFetchingState(false);
+        }
     }
 
     render () {
-        const { posts: userPosts } = this.state;
+        const { posts: userPosts, isSpinner } = this.state;
 
         const posts = userPosts.map((post) => (
-            <Catcher key = { post._id } >
-                <Post key = { post._id } { ...post } />
+            <Catcher key = { post.id } >
+                <Post key = { post.id } { ...post } />
             </Catcher>
         ));
 
         return (
            <section className = { Styles.feed }>
                <StatusBar />
+               <Spinner isSpinner = { isSpinner } />
                <Composer
                 _createPostAsync = { this._createPostAsync }
                />
                <Counter counter = { posts.length } />
                { posts }
            </section>
-        )
+        );
     }
 }

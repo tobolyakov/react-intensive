@@ -2,7 +2,7 @@ import { MAIN_URL, TOKEN } from './config';
 
 export const  api = {
     async fetchPosts () {
-        const response = await fetch(MAIN_URL, {
+        const response = await fetch(`${MAIN_URL}?size=20`, {
             method: 'GET',
         });
 
@@ -10,16 +10,16 @@ export const  api = {
             throw  new Error('Posts were not loader');
         }
 
-        const { data } = await  response.json();
+        const { data: posts } = await  response.json();
 
         return posts;
     },
     async createPost (comment) {
         const response = await fetch(MAIN_URL, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authentication: TOKEN,
+                Authorization: TOKEN,
             },
             body: JSON.stringify({ comment }),
         });
