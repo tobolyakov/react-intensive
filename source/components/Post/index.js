@@ -1,10 +1,10 @@
 //Core
 import React, { Component } from 'react';
 import moment from 'moment';
-import { string } from "prop-types";
 
 // Instruments
 import Styles from './style.m.css';
+import { string } from "prop-types";
 
 // Components
 import { withProfile } from "../HOC/withProfile";

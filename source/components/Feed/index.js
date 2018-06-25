@@ -10,6 +10,7 @@ import StatusBar from '../../components/StatusBar';
 import Composer from '../../components/Composer';
 import Post from '../../components/Post';
 import Catcher from '../../components/Catcher';
+import Counter from '../../components/Counter';
 
 // Render
 
@@ -43,6 +44,7 @@ export default class Feed extends Component {
                <Composer
                 _createPostAsync = { this._createPostAsync }
                />
+               <Counter counter = { posts.length } />
                { posts }
            </section>
         )
