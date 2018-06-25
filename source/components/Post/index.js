@@ -1,7 +1,6 @@
 //Core
 import React, { Component } from 'react';
 import moment from 'moment';
-import { string } from 'prop-types';
 
 // Instuments
 import Styles from './style.m.css';
@@ -12,11 +11,6 @@ import { Consumer } from "../HOC/withProfile";
 // Render
 
 export default class Post extends Component{
-    static propTypes = {
-        avatar:                 string.isRequire,
-        currentUserFirstName:   string.isRequire,
-        currentUserLastName:    string.isRequire,
-    };
 
     render () {
         const time = moment().format('MMMM D h:mm:ss a');

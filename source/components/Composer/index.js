@@ -1,6 +1,5 @@
 //Core
 import React, { Component } from 'react';
-import { string } from 'prop-types';
 
 // Instuments
 import Styles from './style.m.css';
@@ -11,10 +10,6 @@ import { Consumer } from "../HOC/withProfile";
 // Render
 
 export default class Composer extends Component{
-    static propTypes = {
-        avatar:                 string.isRequire,
-        currentUserFirstName:   string.isRequire,
-    };
 
     render () {
         // const { avatar, currentUserFirstName } = this.props;
