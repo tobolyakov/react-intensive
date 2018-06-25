@@ -1,11 +1,9 @@
 //Core
 import React, { createContext, Component } from 'react';
 
-// Instruments
-
-//
-
 const { Provider, Consumer } = createContext();
+
+// Components
 
 const withProfile = (Enhanceable) =>
     class  WithProfile extends Component {
@@ -19,10 +17,6 @@ const withProfile = (Enhanceable) =>
             );
         }
     };
-
-
-// Components
-
 
 export {
     Provider,

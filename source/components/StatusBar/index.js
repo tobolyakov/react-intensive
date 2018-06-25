@@ -4,14 +4,12 @@ import cs from 'classnames';
 
 // Instruments
 import Styles from './styles.m.css';
-import {withProfile} from "../HOC/withProfile";
-import {Composer} from "../Composer";
-
+import { withProfile } from "../HOC/withProfile";
 
 // Components
 
-
-export class StatusBar extends Component {
+@withProfile
+export default class StatusBar extends Component {
     render () {
         const { avatar, currentUserFirstName, currentUserLastName } = this.props;
 
@@ -37,4 +35,4 @@ export class StatusBar extends Component {
     }
 };
 
-export default withProfile(StatusBar);
+// @withProfile === export default withProfile(StatusBar);

@@ -6,10 +6,16 @@ import Styles from './style.m.css';
 
 // Components
 import { withProfile } from "../HOC/withProfile";
+import { string } from "prop-types";
 
 // Render
 
 export class Composer extends Component {
+    static propTypes = {
+        avatar:                 string.isRequired,
+        currentUserFirstName:   string.isRequired,
+    }
+
     state = {
         comment: "",
     };

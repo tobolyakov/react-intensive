@@ -1,6 +1,6 @@
 //Core
-import React, {Component} from 'react';
-import {hot} from 'react-hot-loader';
+import React, { Component } from 'react';
+import { hot } from 'react-hot-loader';
 
 //Instrument
 import avatar from '../../theme/assets/homer.png';
@@ -20,7 +20,7 @@ export class App extends Component {
     render() {
         return (
             <Provider value={ options }>
-                <Feed { ...options }/>
+                <Feed />
             </Provider>
         )
     }
