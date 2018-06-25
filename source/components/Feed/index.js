@@ -9,6 +9,7 @@ import { getUniqueID } from "../../instruments";
 import StatusBar from '../../components/StatusBar';
 import Composer from '../../components/Composer';
 import Post from '../../components/Post';
+import Catcher from '../../components/Catcher';
 
 // Render
 
@@ -31,7 +32,9 @@ export default class Feed extends Component {
         const { posts: userPosts } = this.state;
 
         const posts = userPosts.map((post) => (
-            <Post key = { post._id } { ...post } />
+            <Catcher key = { post._id } >
+                <Post key = { post._id } { ...post } />
+            </Catcher>
         ));
 
         return (

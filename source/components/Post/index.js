@@ -16,14 +16,14 @@ export class Post extends Component {
         currentUserLastName:    string.isRequired,
     }
 
-    shouldComponentUpdate () {
-        return false;
-    }
-
     render () {
         const time = moment().format('MMMM D h:mm:ss a');
 
-        const { avatar, currentUserFirstName, currentUserLastName, comment } = this.props;
+        const {
+            avatar,
+            currentUserFirstName,
+            currentUserLastName,
+            comment } = this.props;
 
         return (
             <section className = { Styles.post }>

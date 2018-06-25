@@ -8,6 +8,7 @@ import avatar from '../../theme/assets/homer.png';
 // Components
 import Feed from '../../components/Feed';
 import { Provider } from "../../components/HOC/withProfile";
+import Catcher from '../../components/Catcher';
 
 const options = {
     avatar,
@@ -19,9 +20,11 @@ const options = {
 export class App extends Component {
     render() {
         return (
-            <Provider value={ options }>
-                <Feed { ...options } />
-            </Provider>
+            <Catcher>
+                <Provider value={ options }>
+                    <Feed { ...options } />
+                </Provider>
+            </Catcher>
         )
     }
 }
