@@ -8,11 +8,11 @@ import Styles from './style.m.css';
 // Components
 import Composer from '../../components/Composer';
 import Post from '../../components/Post';
-import StatusBar from '../../components/StatusBar'
+import StatusBar from '../../components/StatusBar';
 
 // Render
 
-export default class Feed extends Component{
+export default class Feed extends Component {
     static propTypes = {
         avatar:                 string.isRequire,
         currentUserFirstName:   string.isRequire,
@@ -20,16 +20,41 @@ export default class Feed extends Component{
     };
 
     static defautProps = {
-        currentUserFirstName: 'Jon'
+        currentUserFirstName: 'Jon',
     };
 
+    constructor () {
+        super();
+        this._createPost = ::this._createPost;
+    }
+
+    state = {
+        posts: [],
+    }
+
+    _createPost (comment) {
+        this.setState(({ posts }) => ({
+            posts: [{ comment }, ...posts],
+        }));
+    }
+
     render () {
-        // const { avatar, currentUserFirstName } = this.props;
+        const { avatar, currentUserFirstName } = this.props;
+        const { posts: userPosts } = this.state;
+
+        const posts = userPosts.map((post, index) => (
+            <Post key = { index } { ...post } />
+        ));
+
         return (
-           <section className={Styles.feed}>
+           <section className = { Styles.feed }>
                <StatusBar />
-               <Composer />
-               <Post />
+               <Composer
+                avatar = { avatar }
+                createPost = { this._createPost }
+                currentUserFirstName = { currentUserFirstName }
+               />
+               { posts}
            </section>
         )
     }
