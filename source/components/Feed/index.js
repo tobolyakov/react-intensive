@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 // Instruments
 import Styles from './style.m.css';
 import { getUniqueID } from "../../instruments";
+import { api } from '../../REST/api';
 
 // Components
 import StatusBar from '../../components/StatusBar';
@@ -21,6 +22,14 @@ export default class Feed extends Component {
 
     state = {
         posts: [],
+    }
+
+    componentDidMount () {
+        this._fetchPostAsync();
+    }
+
+    _fetchPostAsync = async() => {
+        const posts = await api.fetchPosts();
     }
 
     _createPostAsync = (comment) => {
