@@ -16,6 +16,10 @@ export class Post extends Component {
         currentUserLastName:    string.isRequired,
     }
 
+    shouldComponentUpdate () {
+        return false;
+    }
+
     render () {
         const time = moment().format('MMMM D h:mm:ss a');
 

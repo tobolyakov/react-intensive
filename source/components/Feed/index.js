@@ -30,7 +30,7 @@ export default class Feed extends Component {
     render () {
         const { posts: userPosts } = this.state;
 
-        const posts = userPosts.map((post, _id) => (
+        const posts = userPosts.map((post) => (
             <Post key = { post._id } { ...post } />
         ));
 
