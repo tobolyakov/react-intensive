@@ -4,14 +4,16 @@ import cs from 'classnames';
 
 // Instruments
 import Styles from './styles.m.css';
-import { Consumer } from "../HOC/withProfile";
+import {withProfile} from "../HOC/withProfile";
+import {Composer} from "../Composer";
 
 
 // Components
 
 
-export default class StatusBar extends Component {
+export class StatusBar extends Component {
     render () {
+        const { avatar, currentUserFirstName, currentUserLastName } = this.props;
 
         const status = cs({
             [Styles.status]:  true,
@@ -19,24 +21,20 @@ export default class StatusBar extends Component {
         });
 
         return (
-            <Consumer>
-                {
-                    (context) => (
-                        <section className = { Styles.statusBar }>
-                            <div className = { status }>
-                                <div>Offline</div>
-                                <span />
-                            </div>
-                            <button>
-                                <img src = { context.avatar } />
-                                <span>{ context.currentUserFirstName }</span>
-                                &nbsp;
-                                <span>{ context.currentUserLastName }</span>
-                            </button>
-                        </section>
-                    )
-                }
-            </Consumer>
+            <section className = { Styles.statusBar }>
+                <div className = { status }>
+                    <div>Offline</div>
+                    <span />
+                </div>
+                <button>
+                    <img src = { avatar } />
+                    <span>{ currentUserFirstName }</span>
+                    &nbsp;
+                    <span>{ currentUserLastName }</span>
+                </button>
+            </section>
         );
     }
-}
+};
+
+export default withProfile(StatusBar);

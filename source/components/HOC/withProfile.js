@@ -27,4 +27,5 @@ const withProfile = (Enhanceable) =>
 export {
     Provider,
     Consumer,
+    withProfile,
 };

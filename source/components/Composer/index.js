@@ -5,11 +5,11 @@ import React, { Component } from 'react';
 import Styles from './style.m.css';
 
 // Components
-import { Consumer } from "../HOC/withProfile";
+import { withProfile } from "../HOC/withProfile";
 
 // Render
 
-export default class Composer extends Component {
+export class Composer extends Component {
     state = {
         comment: "",
     };
@@ -21,13 +21,11 @@ export default class Composer extends Component {
 
     _updateComment = (e) => {
         const { value: comment } = e.target;
-        console.log(comment);
         this.setState({ comment });
     }
 
     _submitComment = (e) => {
         const { comment } = this.state;
-console.log(comment)
 
         if (!comment) {
             return null;
@@ -44,26 +42,23 @@ console.log(comment)
 
     render () {
         const { comment } = this.state;
+        const { avatar, currentUserFirstName } = this.props;
 
         return (
-            <Consumer>
-                {
-                    (context) => (
-                        <section className = { Styles.composer }>
-                            <img src = { context.avatar } />
-                            <form onSubmit = { this._hendleFormSubmit }>
-                                <textarea
-                                    placeholder = { `Wat is in your mind, ${context.currentUserFirstName}` }
-                                    value = { comment }
-                                    onChange = { this._updateComment }
-                                />
-                                <br />
-                                <input type = 'submit' value = 'Post' />
-                            </form>
-                        </section>
-                    )
-                }
-            </Consumer>
+            <section className = { Styles.composer }>
+                <img src = { avatar } />
+                <form onSubmit = { this._hendleFormSubmit }>
+                    <textarea
+                        placeholder = { `Wat is in your mind, ${currentUserFirstName}` }
+                        value = { comment }
+                        onChange = { this._updateComment }
+                    />
+                    <br />
+                    <input type = 'submit' value = 'Post' />
+                </form>
+            </section>
         );
     }
 }
+
+export default withProfile(Composer);

@@ -46,8 +46,8 @@ export default class Feed extends Component {
            <section className = { Styles.feed }>
                <StatusBar />
                <Composer
-               _createPostAsync = { this._createPostAsync }
-               avatar = { avatar }
+                _createPostAsync = { this._createPostAsync }
+                avatar = { avatar }
                 currentUserFirstName = { currentUserFirstName }
                />
                { posts }
