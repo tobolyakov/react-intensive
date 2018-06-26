@@ -1,13 +1,15 @@
 //Core
 import React, { Component } from 'react';
 import gsap from 'gsap';
-import { Transition } from 'react-transition-group';
+import { Transition, CSSTransition, TransitionGroup } from 'react-transition-group';
+import moment from 'moment';
 
 // Instruments
 import Styles from './style.m.css';
 import { api } from '../../REST/api';
 import { socket } from '../../socekt/init';
 import { GROUP_ID } from "../../REST";
+
 
 // Components
 import StatusBar from '../../components/StatusBar';
@@ -17,6 +19,7 @@ import Catcher from '../../components/Catcher';
 import Counter from '../../components/Counter';
 import Spinner from '../../components/Spinner';
 import Quote from '../../components/Quote';
+import Postman from '../../components/Postman';
 
 // Render
 
@@ -29,10 +32,11 @@ export default class Feed extends Component {
         posts: [],
         isSpinning: false,
         online: false,
+        isAnimate: false,
     }
 
     componentDidMount () {
-        const { currentUserFirstName, currentUserLastName  } = this.props;
+        const { currentUserFirstName, currentUserLastName } = this.props;
         this._fetchPostAsync();
         socket.on('connect', () => {
             this.setState({
@@ -173,13 +177,45 @@ export default class Feed extends Component {
         gsap.fromTo(composer, 5, { opacity: 0, y: -50, z: -50 }, { opacity: 1, y: 0, z: 0 });
     }
 
+    _animatePostmanEnter = (postman) => {
+        gsap.fromTo(postman, 3, {  x: 350 }, { x: 0, onComplete: setTimeout(function() {
+                gsap.fromTo(postman, 3, { x: 0 }, { x: 350 });
+            }, 6000)});
+    }
+
+    _animatePostmanTime = (postman) => {
+        const setTime = moment().format('mm');
+        localStorage.setItem('setTime', setTime);
+        const getTime = localStorage.getItem('setTime');
+
+        console.log(setTime - getTime);
+
+        // if(setTime - getTime = 2) {
+        //     gsap.fromTo(postman, 3, {  x: 350 }, { x: 0, onComplete: setTimeout(function() {
+        //             gsap.fromTo(postman, 3, { x: 0 }, { x: 350 });
+        //         }, 6000)});
+        // }
+    }
+
+
     render () {
-        const { posts: userPosts, isSpinning, online } = this.state;
+        const { posts: userPosts, isSpinning, online, currentUserFirstName, currentUserLastName } = this.state;
 
         const posts = userPosts.map((post) => (
-            <Catcher key = { post.id } >
-                <Post { ...post } _removePostAsync = { this._removePostAsync } _likePostAsync = { this._likePostAsync } />
-            </Catcher>
+            <CSSTransition
+                classNames = { {
+                    enter:          Styles.postInStart,
+                    enterActive:    Styles.postInEnd,
+                    exit:           Styles.postOutStart,
+                    exitActive:     Styles.postOutEnd,
+                } }
+                key = { post.id }
+                timeout = { { enter: 500, exit: 400 } }
+            >
+                <Catcher>
+                    <Post { ...post } _removePostAsync = { this._removePostAsync } _likePostAsync = { this._likePostAsync } />
+                </Catcher>
+            </CSSTransition>
         ));
 
         return (
@@ -196,8 +232,17 @@ export default class Feed extends Component {
                    />
                </Transition>
                <Counter counter = { posts.length } />
+               <TransitionGroup>
                { posts }
+               </TransitionGroup>
                {/*<Quote/>*/}
+               <Transition
+                   appear
+                   in
+                   timeout = { 3000 }
+                   onEnter = { this._animatePostmanEnter } >
+               <Postman />
+           </Transition>
            </section>
         );
     }

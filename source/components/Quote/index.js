@@ -13,7 +13,7 @@ const quote = document.getElementById('quote');
 export default class Quote extends Component {
     render () {
         return createPortal(
-            <div className = { Style.spinner } /> : null,
+            <div className = { Style.spinner } />,
             quote
         );
     }
