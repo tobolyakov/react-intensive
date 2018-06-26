@@ -106,7 +106,7 @@ class Like extends Component {
                <span className = { likeStyles } onClick = { this._likePost }>Like</span>
                <div>
                    { likes }
-                   <span onMouseEnter = { this._showLikers } onMouseLeave = { this._showLikers }>{ likesDescription }</span>
+                   <span onMouseEnter = { this._showLikers } onMouseLeave = { this._hideLikers }>{ likesDescription }</span>
                </div>
            </section>
         );
