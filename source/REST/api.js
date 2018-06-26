@@ -34,7 +34,7 @@ export const  api = {
         return post;
     },
 
-    async deletedPosts (id) {
+    async removePosts (id) {
         const response = await fetch(`${MAIN_URL}/${id}`, {
             method: 'DELETE',
             headers: {
@@ -42,13 +42,9 @@ export const  api = {
             },
         });
 
-        if (response.status !== 200) {
+        if (response.status !== 204) {
             throw  new Error('Posts were not loader');
         }
-
-        const { data: post } = await  response.json();
-
-        return post;
     },
 
     async likePost (id) {

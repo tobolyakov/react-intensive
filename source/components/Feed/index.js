@@ -63,7 +63,38 @@ export default class Feed extends Component {
         socket.on('quote', (postJSON) => {
             console.log(postJSON);
         });
+        socket.on('like', (postJSON) => {
+            const { data: likePost, meta } = JSON.parse(postJSON);
 
+            if (
+                `${currentUserFirstName} ${currentUserLastName}`
+                !==
+                `${meta.authorFirstName} ${meta.authorLastName}`
+            ) {
+                this.setState (({ posts }) => ({
+                    posts: posts.map((post) => post.id === likePost.id ? likePost : post),
+                }));
+            }
+
+            console.log(likePost);
+            console.log(meta);
+        });
+        socket.on('remove', (postJSON) => {
+            const { data: removePost, meta } = JSON.parse(postJSON);
+
+            if (
+                `${currentUserFirstName} ${currentUserLastName}`
+                !==
+                `${meta.authorFirstName} ${meta.authorLastName}`
+            ) {
+                this.setState (({ posts }) => ({
+                    posts: posts.filter((post) => post.id !== removePost.id),
+                }));
+            }
+
+            console.log(removePost);
+            console.log(meta);
+        });
 
     }
 
@@ -78,7 +109,7 @@ export default class Feed extends Component {
             this._setPostFetchingState(true);
             const posts = await api.fetchPosts();
 
-            console.log(posts);
+            // console.log(posts);
             this.setState({
                 posts,
             });
@@ -106,20 +137,21 @@ export default class Feed extends Component {
         }
     }
 
-    /*_deletePostAsync = async (id) => {
+    _removePostAsync = async (id) => {
         try {
             this._setPostFetchingState(true);
-            const deletedPost = await api.deletedPosts(id);
+
+            await api.removePosts(id);
 
             this.setState(({ posts }) => ({
-                posts: posts.map((post) => post.id === id ? deletedPost : post),
+                posts: posts.filter((post) => post.id !== id),
             }));
         } catch ({ message }) {
             console.error(message);
         } finally {
             this._setPostFetchingState(false);
         }
-    }*/
+    }
 
     _likePostAsync = async (id) => {
         try {
@@ -141,18 +173,18 @@ export default class Feed extends Component {
     }
 
     render () {
-        const { posts: userPosts, isSpinner, online } = this.state;
+        const { posts: userPosts, isSpinning, online } = this.state;
 
         const posts = userPosts.map((post) => (
             <Catcher key = { post.id } >
-                <Post { ...post } _deletePostAsync = { this._deletePostAsync } _likePostAsync = { this._likePostAsync } />
+                <Post { ...post } _removePostAsync = { this._removePostAsync } _likePostAsync = { this._likePostAsync } />
             </Catcher>
         ));
 
         return (
            <section className = { Styles.feed }>
                <StatusBar online = { online } />
-               <Spinner isSpinner = { isSpinner } />
+               <Spinner isSpinning = { isSpinning } />
                <Transition
                    appear
                    in

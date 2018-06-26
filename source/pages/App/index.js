@@ -18,13 +18,13 @@ const options = {
 
 @hot(module)
 export class App extends Component {
-    render() {
+    render () {
         return (
             <Catcher>
-                <Provider value={ options }>
+                <Provider value = { options }>
                     <Feed { ...options } />
                 </Provider>
             </Catcher>
-        )
+        );
     }
-}
+};
