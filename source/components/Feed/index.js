@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 
 // Instruments
 import Styles from './style.m.css';
-import { getUniqueID } from "../../instruments";
 import { api } from '../../REST/api';
+import { socket } from '../../socekt/init';
+import { GROUP_ID } from "../../REST";
 
 // Components
 import StatusBar from '../../components/StatusBar';
@@ -23,10 +24,38 @@ export default class Feed extends Component {
 
     state = {
         posts: [],
+        isSpinning: false,
+        online: false,
     }
 
     componentDidMount () {
+        const { currentUserFirstName, currentUserLastName  } = this.props;
         this._fetchPostAsync();
+        socket.on('connect', () => {
+            this.setState({
+                online: true,
+            });
+        });
+        socket.on('disconnect', () => {
+            this.setState({
+                online: false,
+            });
+        });
+        socket.emit('join', GROUP_ID);
+        socket.on('create', (postJSON) => {
+            const { data: createdPost, meta } = JSON.parse(postJSON);
+
+            if (
+                `${currentUserFirstName} ${currentUserLastName}`
+                !==
+                `${meta.authorFirstName} ${meta.authorLastName}`
+            ) {
+                this.setState (({ posts }) => ({
+                    posts: [createdPost, ...posts],
+                }));
+            }
+        });
+
     }
 
     _setPostFetchingState = (isSpinning) => {
@@ -69,7 +98,7 @@ export default class Feed extends Component {
     }
 
     render () {
-        const { posts: userPosts, isSpinner } = this.state;
+        const { posts: userPosts, isSpinner, online } = this.state;
 
         const posts = userPosts.map((post) => (
             <Catcher key = { post.id } >
@@ -79,7 +108,7 @@ export default class Feed extends Component {
 
         return (
            <section className = { Styles.feed }>
-               <StatusBar />
+               <StatusBar online = { online } />
                <Spinner isSpinner = { isSpinner } />
                <Composer
                 _createPostAsync = { this._createPostAsync }

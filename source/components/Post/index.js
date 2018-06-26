@@ -18,15 +18,9 @@ export class Post extends Component {
     }
 
     _deletePostAsync = async () => {
-        try {
-            const posts = await api.deletePosts();
+        const { id } = this.props;
 
-            console.log(posts);
-        } catch ({ message }) {
-            console.error(message);
-        } finally {
-
-        }
+        console.log(id);
     }
 
     _getCross = () => {
@@ -59,7 +53,7 @@ export class Post extends Component {
         const cross = this._getCross();
 
         return (
-            <section className = { Styles.post }>
+            <section className = { Styles.post } onClick = {this._deletePostAsync}>
                 { cross }
                 <img src = { avatar } />
                 <a>{ lastName } { firstName }</a>

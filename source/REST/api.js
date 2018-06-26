@@ -34,8 +34,8 @@ export const  api = {
         return post;
     },
 
-    async deletePosts (id) {
-        const response = await fetch(`${MAIN_URL}/${id}`, {
+    async deletePosts () {
+        const response = await fetch(`${MAIN_URL}`, {
             method: 'DELETE',
         });
 
@@ -43,8 +43,6 @@ export const  api = {
             throw  new Error('Posts were not loader');
         }
 
-        const { data: posts } = await  response.json();
-
-        return posts;
+        return 1;
     },
 };
