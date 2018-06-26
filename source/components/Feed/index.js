@@ -16,6 +16,7 @@ import Post from '../../components/Post';
 import Catcher from '../../components/Catcher';
 import Counter from '../../components/Counter';
 import Spinner from '../../components/Spinner';
+import Quote from '../../components/Quote';
 
 // Render
 
@@ -196,6 +197,7 @@ export default class Feed extends Component {
                </Transition>
                <Counter counter = { posts.length } />
                { posts }
+               {/*<Quote/>*/}
            </section>
         );
     }
