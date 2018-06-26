@@ -54,7 +54,14 @@ export default class Feed extends Component {
                     posts: [createdPost, ...posts],
                 }));
             }
+
+            console.log(createdPost);
+            console.log(meta);
         });
+        socket.on('quote', (postJSON) => {
+            console.log(postJSON);
+        });
+
 
     }
 
@@ -97,12 +104,42 @@ export default class Feed extends Component {
         }
     }
 
+    /*_deletePostAsync = async (id) => {
+        try {
+            this._setPostFetchingState(true);
+            const deletedPost = await api.deletedPosts(id);
+
+            this.setState(({ posts }) => ({
+                posts: posts.map((post) => post.id === id ? deletedPost : post),
+            }));
+        } catch ({ message }) {
+            console.error(message);
+        } finally {
+            this._setPostFetchingState(false);
+        }
+    }*/
+
+    _likePostAsync = async (id) => {
+        try {
+            this._setPostFetchingState(true);
+            const likedPost = await api.likePost(id);
+
+            this.setState(({ posts }) => ({
+                posts: posts.map((post) => post.id === id ? likedPost : post),
+            }));
+        } catch ({ message }) {
+            console.error(message);
+        } finally {
+            this._setPostFetchingState(false);
+        }
+    }
+
     render () {
         const { posts: userPosts, isSpinner, online } = this.state;
 
         const posts = userPosts.map((post) => (
             <Catcher key = { post.id } >
-                <Post key = { post.id } { ...post } />
+                <Post { ...post } _deletePostAsync = { this._deletePostAsync } _likePostAsync = { this._likePostAsync } />
             </Catcher>
         ));
 
