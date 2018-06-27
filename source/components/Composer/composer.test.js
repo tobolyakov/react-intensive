@@ -25,7 +25,7 @@ const initialState = {
 };
 
 const updatedState = {
-    comment: 'testComment',
+    comment: testComment,
 };
 
 const result = mount(<Composer {  ...props }/>);
@@ -120,6 +120,75 @@ describe('Composer comment:', () => {
                 );
 
                 expect(result.state()).toEqual(initialState);
+            });
+        });
+
+        describe('_updateComment', () => {
+            test('should update a state.comment value whe called as onChange event handler',() => {
+                result.instance()._updateComment({
+                    target: {
+                        value: testComment,
+                    },
+                });
+
+                expect(result.state()).toEqual(updatedState);
+                jest.clearAllMocks();
+                result.setState(initialState);
+            });
+        });
+
+        describe('_submitCommentEnter', () => {
+            afterEach(() => {
+                jest.clearAllMocks();
+            });
+
+            test('should call e.preventDefault() and this._submitCommentEnter when invoked onKeyPress handler', () => {
+                result.instance()._submitCommentEnter({
+                    preventDefault: mocks.preventDefaultMock,
+                    key: 'Enter',
+                });
+
+                expect(mocks.preventDefaultMock).toHaveBeenCalledTimes(1);
+                expect(spies._submitCommentSpy).toHaveBeenCalledTimes(1);
+            });
+
+            test('should not call e.preventDefault() end this_submitCommentEnter any other key is pressed', () => {
+                result.instance()._submitCommentEnter({
+                    preventDefault: mocks.preventDefaultMock,
+                });
+
+                expect(mocks.preventDefaultMock).not.toHaveBeenCalled();
+                expect(spies._submitCommentSpy).not.toHaveBeenCalled();
+            });
+        });
+
+        describe('should implement core business logic of sending a tex content to create post handler', () => {
+            test('textarea value shuold be empty initially', () => {
+                expect(result.find('textarea').text()).toBe('');
+            });
+
+            test('textarea value should be controlled by component state', () => {
+                expect(result.state('comment')).toBe('');
+                expect(result.find('textarea').text()).toBe('');
+
+                result.setState({
+                    comment: testComment,
+                });
+
+                expect(result.find('textarea').text()).toBe(testComment);
+                result.setState(initialState);
+            });
+
+            test('textarea onChange event should trigger this._updateComment handle', () => {
+                result.find('textarea').simulate('change', {
+                    target: {
+                        value: testComment,
+                    },
+                });
+
+                expect(spies._updateCommentSpy).toHaveBeenCalledTimes(1);
+                expect(result.find('textarea').text()).toBe(testComment);
+                expect(result.state()).toEqual(updatedState);
             });
         });
     });
