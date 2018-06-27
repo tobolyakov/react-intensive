@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Composer comment: should have core class methods, defined as class arrow function properties: should render valid markup depending on passed props snapshot should match 1`] = `"<img src=\\"http://www.anatar.com\\"><form><textarea placeholder=\\"Wat is in your mind, Igor\\"></textarea><br><input type=\\"submit\\" value=\\"Post\\"></form>"`;

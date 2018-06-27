@@ -190,6 +190,28 @@ describe('Composer comment:', () => {
                 expect(result.find('textarea').text()).toBe(testComment);
                 expect(result.state()).toEqual(updatedState);
             });
+
+
+        });
+
+        describe('should render valid markup depending on passed props', () => {
+            test('should contain valid css class', () => {
+                expect(markup.attr('class')).toBe('composer');
+            });
+
+            test('textarea tah should contain valid value for pleceholder attribute', () => {
+                expect(markup.find('textarea').attr('placeholder'))
+                    .toBe(`Wat is in your mind, ${currentUserFirstName}`);
+            });
+
+            test('img tag should contain valid value for src attribute', () => {
+                expect(markup.find('img').attr('src')).toBe(avatar);
+            });
+
+            test('snapshot should match', () => {
+                expect(markup.html()).toMatchSnapshot();
+
+            });
         });
     });
 });
