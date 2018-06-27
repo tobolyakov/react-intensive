@@ -39,7 +39,6 @@ export default class Feed extends Component {
     componentDidMount () {
         const { currentUserFirstName, currentUserLastName } = this.props;
         this._fetchPostAsync();
-        this._fetchQuoteAsync();
         socket.on('connect', () => {
             this.setState({
                 online: true,
@@ -126,22 +125,6 @@ export default class Feed extends Component {
             this._setPostFetchingState(false);
         }
     }
-
-    // _fetchQuoteAsync = async () => {
-    //     try {
-    //         this._setPostFetchingState(true);
-    //         const quotes = await api.fetchQuote();
-    //
-    //         // console.log(posts);
-    //         this.setState({
-    //             quotes,
-    //         });
-    //     } catch ({ message }) {
-    //         console.error(message);
-    //     } finally {
-    //         this._setPostFetchingState(false);
-    //     }
-    // }
 
     _createPostAsync = async (comment) => {
         try {
