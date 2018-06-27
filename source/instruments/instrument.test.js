@@ -50,11 +50,6 @@ describe('Instruments module:', () => {
             expect(result).toThrow('The function argument should be a number!');
         });
 
-        test('result string', () => {
-            const result = () => getUniqueID('a');
-            expect(result).toThrow('The function argument should be a number!');
-        });
-
     });
 
     describe('getFullApiUrl function:', () => {
