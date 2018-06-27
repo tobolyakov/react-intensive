@@ -30,6 +30,7 @@ export default class Feed extends Component {
 
     state = {
         posts: [],
+        quotes: [],
         isSpinning: false,
         online: false,
         isAnimate: false,
@@ -38,6 +39,7 @@ export default class Feed extends Component {
     componentDidMount () {
         const { currentUserFirstName, currentUserLastName } = this.props;
         this._fetchPostAsync();
+        this._fetchQuoteAsync();
         socket.on('connect', () => {
             this.setState({
                 online: true,
@@ -125,6 +127,22 @@ export default class Feed extends Component {
         }
     }
 
+    // _fetchQuoteAsync = async () => {
+    //     try {
+    //         this._setPostFetchingState(true);
+    //         const quotes = await api.fetchQuote();
+    //
+    //         // console.log(posts);
+    //         this.setState({
+    //             quotes,
+    //         });
+    //     } catch ({ message }) {
+    //         console.error(message);
+    //     } finally {
+    //         this._setPostFetchingState(false);
+    //     }
+    // }
+
     _createPostAsync = async (comment) => {
         try {
             this._setPostFetchingState(true);
@@ -199,7 +217,7 @@ export default class Feed extends Component {
 
 
     render () {
-        const { posts: userPosts, isSpinning, online, currentUserFirstName, currentUserLastName } = this.state;
+        const { posts: userPosts, quotes: userQuotes, isSpinning, online, currentUserFirstName, currentUserLastName } = this.state;
 
         const posts = userPosts.map((post) => (
             <CSSTransition
@@ -218,6 +236,23 @@ export default class Feed extends Component {
             </CSSTransition>
         ));
 
+        // const quotes = userQuotes.map((quot) => (
+        //     <CSSTransition
+        //         classNames = { {
+        //             enter:          Styles.postInStart,
+        //             enterActive:    Styles.postInEnd,
+        //             exit:           Styles.postOutStart,
+        //             exitActive:     Styles.postOutEnd,
+        //         } }
+        //         key = { quot.id }
+        //         timeout = { { enter: 500, exit: 400 } }
+        //     >
+        //         <Catcher>
+        //             <Quote { ...quot } />
+        //         </Catcher>
+        //     </CSSTransition>
+        // ));
+
         return (
            <section className = { Styles.feed }>
                <StatusBar online = { online } />
@@ -235,7 +270,7 @@ export default class Feed extends Component {
                <TransitionGroup>
                { posts }
                </TransitionGroup>
-               {/*<Quote/>*/}
+               {/*{ quotes }*/}
                <Transition
                    appear
                    in

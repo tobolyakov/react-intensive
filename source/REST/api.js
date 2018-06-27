@@ -15,6 +15,20 @@ export const  api = {
         return posts;
     },
 
+    async fetchQuote () {
+        const response = await fetch(`${MAIN_URL}`, {
+            method: 'GET',
+        });
+
+        if (response.status !== 200) {
+            throw  new Error('Posts were not loader');
+        }
+
+        const { data: quote } = await  response.json();
+
+        return quote;
+    },
+
     async createPost (comment) {
         const response = await fetch(MAIN_URL, {
             method: 'POST',

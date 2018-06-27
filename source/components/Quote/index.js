@@ -1,20 +1,32 @@
 //Core
 import React, { Component } from 'react';
-import { createPortal } from 'react-dom';
+import gsap from 'gsap';
+import { Transition } from 'react-transition-group';
 
 // Instruments
-import Style from './style.m.css';
+import Styles from './style.m.css';
+import { withProfile } from "../HOC/withProfile";
+import { string } from "prop-types";
 
 // Components
 
 
-const quote = document.getElementById('quote');
+export class Quote extends Component {
+    static propTypes = {
+        author:  string.isRequired,
+        quote:   string.isRequired,
+    }
 
-export default class Quote extends Component {
+
     render () {
-        return createPortal(
-            <div className = { Style.spinner } />,
-            quote
+        const { author, quote } = this.props;
+
+        return (
+            <section className = { Styles.quote }>
+                <div>{`${author} <br /> ${quote}`}</div>
+            </section>
         );
     }
-}
+};
+
+export default withProfile(Quote);
