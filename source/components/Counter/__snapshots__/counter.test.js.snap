@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter component should correspond to their snapshot 1`] = `
+<section
+  className="counter"
+>
+   
+  Posts count: 9
+   
+</section>
+`;
