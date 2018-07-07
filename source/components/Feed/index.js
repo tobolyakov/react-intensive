@@ -24,18 +24,19 @@ import Counter from '../../components/Counter';
 import Spinner from '../../components/Spinner';
 import Quote from '../../components/Quote';
 import Postman from '../../components/Postman';
+import { withStore } from '../HOC';
 
 // Render
-
+@withStore
 export default class Feed extends Component {
-    static defautProps = {
+    static defaultProps = {
         currentUserFirstName: 'Jon',
     };
 
     state = {
-        posts: postStore.getPosts(),
+        // posts: postStore.getPosts(),
         quotes: [],
-        isSpinning: postStore.getSpinningState(),
+        // isSpinning: postStore.getSpinningState(),
         online: false,
         isAnimate: false,
     }
@@ -118,10 +119,10 @@ export default class Feed extends Component {
 
     _onChange = () => {
         console.log('Feed store change');
-        const { posts, isSpinning } = postStore.getStore();
+        const { /*posts,*/ isSpinning } = postStore.getStore();
 
         this.setState({
-            posts,
+           /* posts,*/
             isSpinning,
         });
     }
@@ -129,8 +130,8 @@ export default class Feed extends Component {
     _setPostFetchingState = (isSpinning) => {
         const spinning =
             isSpinning
-                ? startSpinning()
-                : stopSpinning();
+                ? startSpinning(isSpinning)
+                : stopSpinning(isSpinning);
         dispatcher.dispatch(spinning);
 
         // this.setState({
@@ -231,8 +232,8 @@ export default class Feed extends Component {
 
 
     render () {
-        const { posts: userPosts, quotes: userQuotes, isSpinning, online, currentUserFirstName, currentUserLastName } = this.state;
-
+        const { /*posts: userPosts,*/ quotes: userQuotes, isSpinning, online, currentUserFirstName, currentUserLastName } = this.state;
+        const { posts: userPosts } = this.props;
         const posts = userPosts.map((post) => (
             <CSSTransition
                 classNames = { {

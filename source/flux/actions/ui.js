@@ -1,11 +1,11 @@
 import { START_SPINNING, STOP_SPINNING } from './typets';
 
-export const startSpinning = (spinning) => ({
+export const startSpinning = (isSpinning) => ({
     type:   START_SPINNING,
-    payload: true,
+    payload: isSpinning,
 });
 
-export const stopSpinning = (spinning) => ({
+export const stopSpinning = (isSpinning) => ({
     type:   STOP_SPINNING,
-    payload: false,
+    payload: isSpinning,
 });
