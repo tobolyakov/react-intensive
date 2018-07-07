@@ -8,6 +8,5 @@ const POST_ID = '';
 const SOCKET_URL = 'https://lab.lectrum.io/';
 const ROOT_URL = 'https://lab.lectrum.io/react/api';
 const MAIN_URL = getFullApiUrl(ROOT_URL, GROUP_ID);
-const MAIN_POST = getPostApiID(ROOT_URL, GROUP_ID, POST_ID);
 
-export { GROUP_ID, TOKEN, MAIN_URL, MAIN_POST, SOCKET_URL };
+export { GROUP_ID, TOKEN, MAIN_URL, SOCKET_URL };

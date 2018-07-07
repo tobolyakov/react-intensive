@@ -9,6 +9,9 @@ import Styles from './style.m.css';
 import { api } from '../../REST/api';
 import { socket } from '../../socekt/init';
 import { GROUP_ID } from "../../REST";
+import dispatcher from '../../flux/dispatcher';
+import postStore from '../../flux/store';
+import { fetchPosts } from '../../flux/actions/posts';
 
 
 // Components
@@ -29,7 +32,7 @@ export default class Feed extends Component {
     };
 
     state = {
-        posts: [],
+        posts: postStore.getPosts(),
         quotes: [],
         isSpinning: false,
         online: false,
@@ -38,7 +41,11 @@ export default class Feed extends Component {
 
     componentDidMount () {
         const { currentUserFirstName, currentUserLastName } = this.props;
+
+        postStore.subscribe(this._onChange);
+
         this._fetchPostAsync();
+
         socket.on('connect', () => {
             this.setState({
                 online: true,
@@ -104,6 +111,19 @@ export default class Feed extends Component {
 
     }
 
+    componentWillUnmount () {
+        postStore.unsubscribe(this._onChange);
+    }
+
+    _onChange = () => {
+        console.log('Feed store change');
+        const posts = postStore.getPosts();
+
+        this.setState({
+            posts,
+        });
+    }
+
     _setPostFetchingState = (isSpinning) => {
         this.setState({
             isSpinning,
@@ -116,9 +136,12 @@ export default class Feed extends Component {
             const posts = await api.fetchPosts();
 
             // console.log(posts);
-            this.setState({
-                posts,
-            });
+            // this.setState({
+            //     posts,
+            // });
+            dispatcher.dispatch(
+                fetchPosts(posts),
+            );
         } catch ({ message }) {
             console.error(message);
         } finally {
