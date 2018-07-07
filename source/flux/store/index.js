@@ -4,7 +4,7 @@ import { EventEmitter } from 'events';
 //Instrumens
 import dispatcher from '../dispatcher';
 import { fetchPosts } from  '../actions/posts';
-import { FETCH_POSTS } from '../actions/typets';
+import { FETCH_POSTS, STOP_SPINNING, START_SPINNING } from '../actions/typets';
 
 export default new class PostsStore extends EventEmitter {
     constructor () {
@@ -20,6 +20,11 @@ export default new class PostsStore extends EventEmitter {
             switch (action.type) {
                 case FETCH_POSTS: {
                     this.fetchPosts(action.payload);
+                    break;
+                }
+                case START_SPINNING:
+                case STOP_SPINNING: {
+                    this.setSpinningState(action.payload);
                     break;
                 }
                 default:
@@ -50,8 +55,17 @@ export default new class PostsStore extends EventEmitter {
         return this.store.posts;
     }
 
+    getSpinningState () {
+        return this.store.isSpinning;
+    }
+
     fetchPosts (post) {
         this.store.posts = post;
+        this.update();
+    }
+
+    setSpinningState (status) {
+        this.store.isSpinning = status;
         this.update();
     }
 }();

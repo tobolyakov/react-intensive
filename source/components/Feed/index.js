@@ -12,6 +12,7 @@ import { GROUP_ID } from "../../REST";
 import dispatcher from '../../flux/dispatcher';
 import postStore from '../../flux/store';
 import { fetchPosts } from '../../flux/actions/posts';
+import { startSpinning, stopSpinning } from '../../flux/actions/ui';
 
 
 // Components
@@ -34,7 +35,7 @@ export default class Feed extends Component {
     state = {
         posts: postStore.getPosts(),
         quotes: [],
-        isSpinning: false,
+        isSpinning: postStore.getSpinningState(),
         online: false,
         isAnimate: false,
     }
@@ -117,17 +118,24 @@ export default class Feed extends Component {
 
     _onChange = () => {
         console.log('Feed store change');
-        const posts = postStore.getPosts();
+        const { posts, isSpinning } = postStore.getStore();
 
         this.setState({
             posts,
+            isSpinning,
         });
     }
 
     _setPostFetchingState = (isSpinning) => {
-        this.setState({
-            isSpinning,
-        });
+        const spinning =
+            isSpinning
+                ? startSpinning()
+                : stopSpinning();
+        dispatcher.dispatch(spinning);
+
+        // this.setState({
+        //     isSpinning,
+        // });
     }
 
     _fetchPostAsync = async () => {
